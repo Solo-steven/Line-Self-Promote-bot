@@ -1,0 +1,21 @@
+{
+  "name": "self-promote-bot",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "db:start": "docker-compose up -d",
+    "db:stop": "docker-compose down",
+    "db:enter": "docker exec  -it  self-promote-bot_db_1 mongo   ",
+    "start": "nodemon index.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@line/bot-sdk": "^7.5.0",
+    "express": "^4.17.3",
+    "mongoose": "^6.3.1"
+  }
+}
