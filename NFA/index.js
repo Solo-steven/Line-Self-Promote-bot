@@ -25,6 +25,7 @@ class NFA  {
             await bot.replyMessage(token, defaultTransition.action)
             return defaultTransition.next;
         }
+        // record for check
         this.states.push(state)
         this.nextStateOfState[state] = matchActionNextArray.map(item => item.next);
     }

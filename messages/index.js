@@ -36,7 +36,8 @@ const createMenuMessage = (text) => {
         createButtonMessage([
             { label: "擅長的技術",text: "Skill" },
             { label: "過去的經驗",text: "Experience" },
-            { label: "目前的學歷",text: "Education" }
+            { label: "目前的學歷",text: "Education" },
+            { label: "這個 bot 有什麼特別", text: "About this bot" }
         ])
     ]
 }
