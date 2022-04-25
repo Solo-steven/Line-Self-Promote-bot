@@ -71,7 +71,7 @@ https
     )
     .listen(4000, async () => {
         try {
-            await mongoose.connect("mongodb://localhost:5000/chat");
+            await mongoose.connect("mongodb://chat-bot-db/chat");
             console.log("Server Setup at 4000");
         }catch(err) {
             console.log("Error Happend When Connect to DB, Please Close App.")

@@ -8,7 +8,8 @@
     "db:start": "docker-compose up -d",
     "db:stop": "docker-compose down",
     "db:enter": "docker exec  -it  self-promote-bot_db_1 mongo   ",
-    "start": "nodemon index.js"
+    "start": "docker-compose up -d --build",
+    "stop": "docker-compose down"
   },
   "keywords": [],
   "author": "",
