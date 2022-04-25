@@ -1,3 +1,5 @@
+const https = require('https');
+const fs = require('fs');
 const express = require('express');
 const mongoose = require('mongoose');
 const app = express();
@@ -59,11 +61,19 @@ app.post("/", async (req, res) => {
     return res.status(200).json();
 });
 
-app.listen(4000, async () => {
-    try {
-        await mongoose.connect("mongodb://localhost:5000/chat");
-        console.log("Server Setup at 4000");
-    }catch(err) {
-        console.log("Error Happend When Connect to DB, Please Close App.")
-    }
-});
+https
+    .createServer(
+        {
+            key: fs.readFileSync("./key.pem"),
+            cert: fs.readFileSync("./cert.pem")
+        },
+        app
+    )
+    .listen(4000, async () => {
+        try {
+            await mongoose.connect("mongodb://localhost:5000/chat");
+            console.log("Server Setup at 4000");
+        }catch(err) {
+            console.log("Error Happend When Connect to DB, Please Close App.")
+        }
+    });
