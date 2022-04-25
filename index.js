@@ -2,6 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const app = express();
 const bot = require('./bot.js');
+const config = require('./config.json');
 const userModel = require('./model/user');
 const { createTextMessage, createMenuMessage } = require('./messages');
 const nfa = require('./NFA');
@@ -21,12 +22,13 @@ app.post("/", async (req, res) => {
             )
             continue;
         }
-        /** Step02: Get State */
+        /** Step02: if user first talk */
         const users = await userModel.find({ id: event.source.userId });
         if(users.length === 0) {
             console.log(`New User ${event.source.userId} is coming.`);
             const user = new userModel();
             user.id = event.source.userId;
+            user.timestamp = Date.now();
             user.state = "INIT";
             await bot.replyMessage(
                 event.replyToken,
@@ -35,10 +37,23 @@ app.post("/", async (req, res) => {
             await user.save();
             continue;
         }
+        /**  Step03 if user leave over 3 min */
         const user = users[0];
-        /** Step03: State Transition */
+        const nowSec = Date.now();
+        if(Math.abs(user.timestamp - nowSec) > 1000 * 60 * config.maxLeave) {
+            await bot.replyMessage(
+                event.replyToken,
+                createMenuMessage(`哈囉，你離開超過${config.maxLeave}分鐘了，讓我們重新開始吧，試試下面的選項`)
+            );
+            user.timestamp = Date.now();
+            user.state = "INIT";
+            await user.save();
+            continue;
+        }
+        /** Step04: State Transition */
         const nextState = await nfa.transition(user.state, event.message.text, event.replyToken);
         user.state = nextState;
+        user.time = Date.now();
         await user.save();
     }
     return res.status(200).json();

@@ -83,7 +83,7 @@ const skill = {
                         { label: "這個 bot 有什麼特別", text: "About this bot" }
                     ])
             ], 
-            next: states.skill
+            next: states.init
         },
         {
             match: "Back",
@@ -172,7 +172,7 @@ const experience = {
         {
             match: "Student Project",
             action: [
-                createTextMessage("我在"),
+                createTextMessage("我在成大學生自己開發的交友軟體 - Ainimal 中參與開發。"),
                 createButtonMessage([
                     { label: "你擔任的角色是什麼", text: "What is your position?"},
                     { label: "對你的收獲是什麼？？", text: "What is benifit for you?" }
@@ -267,7 +267,7 @@ const studentProject = {
         {
             match: "What is your position?",
             action: [
-                createTextMessage("Frontend Developer"),
+                createTextMessage("我擔任 Frontend Developer，第一次有跟 UI/UX 設計師正式合作的機會。目前正在開發 Ainimal 新版的內容。"),
                 createButtonMessage([
                     { label: "對你的收獲是什麼？？", text: "What is benifit for you?" },
                     { label: "好，說說其他的吧", text: "Back" }
@@ -278,7 +278,8 @@ const studentProject = {
         {
             match: "What is benifit for you?",
             action: [
-                createTextMessage("讀書會"),
+                createTextMessage("除了可以跟人合作外，我覺得最大的收獲是可以跟一群共同興趣的同好一起研究開發軟題"),
+                createTextMessage("特別是我們每個禮拜都有讀書會，可以分享自己覺得酷炫的技術，或是自己現在再研究的方面"),
                 createButtonMessage([
                     { label: "你擔任的角色是什麼", text: "What is your position?"},
                     { label: "好，說說其他的吧", text: "Back" }
@@ -319,7 +320,8 @@ const aboutBot =  {
         {
             match: "What is NFA",
             action: [
-                createTextMessage("NFA "),
+                createTextMessage("NFA，全名是 Nondeterministic finite automaton，類似 redux 的概念，將依竊資料的變動視為一個『state machine』"),
+                createTextMessage("並且讓整個 state change 為一個 pure function ，state change 指因為當前的 state 和 input text 改變"),
                 createButtonMessage([
                     { label: "然後呢？", text: "What is your pattern" },
                     { label: "好啦很簡單還說這麼久", text: "Back"},
@@ -330,7 +332,7 @@ const aboutBot =  {
         {
             match: "What is your pattern",
             action: [
-                createTextMessage("NFA "),
+                createTextMessage("NFA我用一個 match-action 的 pattern 去模擬 state 吃下使用者輸入的文字後進行的 state  change。有點類似一個 look-up table"),
                 createButtonMessage([
                     { label: "等等 NFA 是什麼", text: "What is NFA" },
                     { label: "好啦很簡單還說這麼久", text: "Back"},
